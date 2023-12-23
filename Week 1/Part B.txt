@@ -1,0 +1,58 @@
+sudo adduser alice
+sudo adduser bob
+sudo adduser carol
+sudo addgroup project2021
+sudo usermod -a -G project2021 alice
+sudo usermod -a -G project2021 bob
+sudo chown alice project
+cd /home/alice
+sudo chown -R alice project (making alice user/owner of all files/directories inside project folder)
+sudo chgrp -R project2021 project (making project2021 group of all files/directories inside project folder)
+(alice now is the user/owner, project2021 is the group containing alice and bob, carol is outsider)
+Permissions of user overwrite group permissions, that is, if a group cannot write a file, but a user in that group,
+if allowed to write a file, can write a file (overwrites group permissions)
+
+type: u: user, g: group, o: others (those logged in but not user nor in the group)
+evaluator: =: overwrite permission, +: add permission, -: deny permission
+permission: r: read, w: write, x: execute
+
+formula 
+sudo chmod typeEvaluatorPermission file // to change the permission
+
+for example
+sudo chmod u=rwx project (gives user aka alice permission to read, write and cd to project folder)
+sudo chmod o=r-x project (gives others logged in permission to read or cd project, but not write)
+sudo chmod o=--- (others have no permission at all to project folder)
+sudo chmod g+r project (give group permission to read)
+sudo chmod u-w project (deny user permission to write)
+
+
+ls -l (listing permissions and owner and group for all files) (use this freqeuntly to check status of permissions)
+
+for project folder, it should look like this
+total 4
+drwxrwxr-x 4 alice project2021 4096 Sep 14 13:54 project
+d is directory, - is file, first three rwx is user permission, next three rwx is group permission, next three 
+r-x is other permission, 4 is number of directories pointing to the inode
+alice is the owner/user, project2021 is thr group that owns the file, project is the diretory owned by alice and the group
+
+Inside project, it should be like this
+total 280
+drwxrwx--- 2 alice project2021   4096 Sep 14 12:44 code
+drwx------ 2 alice project2021   4096 Sep 14 12:44 confidential
+-rwxrwxr-x 1 alice project2021   8600 Sep 14 12:44 poc
+-rw-rw-r-- 1 alice project2021 262760 Sep 14 12:44 product10.pdf
+
+inside code subdirectory, it should be like this
+-rw-rw-rwx 1 alice project2021  73 Sep 14 12:44 Makefile
+-rw-rw-rwx 1 alice project2021 131 Sep 14 12:44 poc.c
+
+inside confidential subdirectory, it should be like this
+-rw-rwxrwx 1 alice project2021 83 Sep 14 12:44 plan.txt
+
+Note: since others cant have any permissions in code and confidential folders, it cannot do anything on these folders
+files and subdirectories as well, despite having permission in those files. 
+=> permission of parent folders overwrites individual permissions of files and subdirectories inside
+
+
+

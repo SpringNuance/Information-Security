@@ -1,0 +1,46 @@
+Open dev tool, use Select an element and choose Color box
+
+<select class="form-control" name="color">
+                        <option value="red">red</option>
+                        &nbsp;   <option value="green">green</option>
+                        &nbsp;   <option value="blue">blue</option>
+                        &nbsp;   <option value="yellow">yellow</option>
+                        &nbsp;   <option value="purple">purple</option>
+                        &nbsp;   <option value="gold">gold</option>
+                        &nbsp;   <option value="silver">silver</option>
+                        &nbsp;   <option value="black">black</option>
+                        &nbsp;   <option value="chrome">chrome</option>
+                        &nbsp;   <option value="pink">pink</option>
+                        &nbsp;   <option value="white">white</option>
+                        &nbsp;   <option value="cyan">cyan</option>
+                    </select>
+ Edit this one and add the color 
+ &nbsp;   <option value=TiK black">cyan</option>
+
+Create new plant with that color and submit
+
+//////
+
+In sign up page, find this HTML block in the dev tool
+
+<form id="signup-form" action="/signup" method="post">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <button id="submit-button" type="submit" class="button submit">Signup</button>
+            </form>
+
+For username, change the id attribute in 
+<input type="text" class="form-control" name="username" id="username">
+to "password" : <input type="text" class="form-control" name="username" id="password">
+
+And vice versa for the password, change id attribute
+<input type="password" class="form-control" name="password" id="password">
+to "username": <input type="password" class="form-control" name="password" id="username">
+
+Then create new username and password in the form and submit

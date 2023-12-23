@@ -1,0 +1,106 @@
+working directory C:\Users\nguye>
+copy wincheckaccess.exe to that directory
+wincheckaccess.exe /create (create project folder) 
+
+wincheckaccess.exe /check 135355
+ (to check current exercise progress and generate token)
+
+cd directory to go to directory
+cd ..\ to go back one directory
+
+search Computer Management => Local Users and Groups, add alice bob carol user and PROJECT group, add alice and bob to the PROJECT group
+
+Then go to each folder and file in C:\Users\nguye\project> 
+Right click on each directories and file -> properties -> security -> Advanced. 
+If it is a directory like code, confidential, click disable inheritance -> remove all inherited permissions
+IF it is a file like poc, product10.pdf, plan.txt, Makefile, poc.c, inherit permissions from parent folder.
+Others in Linux is Users in windows.
+Click Add -> select a principle (alice, PROJECT, users) and add the according permissions for alice, PROJECT group, others just like linux part
+
+visit https://docs.microsoft.com/en-us/previous-versions/orphan-topics/ws.11/dn789205(v=ws.11)?redirectedfrom=MSDN 
+for principals in windows
+
+The final result should look like below
+
+C:\Users\nguye>wincheckaccess.exe /check 135355
+Checking users and groups.
+Administrators group name in this system is "Administrators".
+Found user Alice.
+Found user Bob.
+Found user Carol.
+Found local group or built-in group PROJECT.
+Found member Alice in group PROJECT.
+Found member Bob in group PROJECT.
+Checking solution under current directory.
+
+Directory "project"
+    Owner: DESKTOP-CD839F7\alice
+    Protected DACL i.e. inheritance from above is blocked.
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Carol:  effective access mask 0|1|8|32|128, expected 0|1|8|32|128
+        User PROJECT:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+
+Directory "project\code"
+    Owner: DESKTOP-CD839F7\nguye
+    Protected DACL i.e. inheritance from above is blocked.
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Carol:  effective access mask 0, expected 0
+        User PROJECT:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+
+File "project\code\poc.c"
+    Owner: DESKTOP-CD839F7\nguye
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Carol:  effective access mask 0, expected 0
+        User PROJECT:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+
+File "project\code\Makefile"
+    Owner: DESKTOP-CD839F7\nguye
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Carol:  effective access mask 0, expected 0
+        User PROJECT:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+
+Directory "project\confidential"
+    Owner: DESKTOP-CD839F7\nguye
+    Protected DACL i.e. inheritance from above is blocked.
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0, expected 0
+        User Carol:  effective access mask 0, expected 0
+        User PROJECT:  effective access mask 0, expected 0
+
+File "project\confidential\plan.txt"
+    Owner: DESKTOP-CD839F7\nguye
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0, expected 0
+        User Carol:  effective access mask 0, expected 0
+        User PROJECT:  effective access mask 0, expected 0
+
+File "project\product10.pdf"
+    Owner: DESKTOP-CD839F7\nguye
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Carol:  effective access mask 0|1|8|32|128, expected 0|1|8|32|128
+        User PROJECT:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+
+File "project\poc.exe"
+    Owner: DESKTOP-CD839F7\nguye
+    Testing the DACL:
+        User Alice:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Bob:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+        User Carol:  effective access mask 0|1|8|32|128, expected 0|1|8|32|128
+        User PROJECT:  effective access mask 0|1|2|4|8|16|32|128|256|65536, expected 0|1|2|4|8|16|32|128|256|65536
+
+Points: 10 (out of max 10)
+Token:  135355X10Y630fc9ce6748c75d0b92635e95a55c65e5d82254dc2d57af78a9954e81de7d7f
+
+COpy paste the token above to the grader to get points

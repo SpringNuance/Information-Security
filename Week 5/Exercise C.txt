@@ -1,0 +1,50 @@
+Go to potplant website and right click on copy address of image of three consecutive images
+For example 
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7ec2f9ffff010b000033fe.png
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7ec5dfffff010b00003407.png
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7ec9beffff010b0000340e.png
+
+We notice that it differs at two parts: 5 digits in the middle and 4 digits at the end, it is the form
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7{:5x}ffff010b0000{:4x}.png
+These {:5x} and {:4x} parts are always increasing 
+Now, its the job of computer to guess what's 5x.
+For {:4x}, its our guess job. Take two links above
+
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7ec5dfffff010b00003407.png (1)
+=> {:5x} = ec5df, {:4x} = 3407
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7ec9beffff010b0000340e.png (2)
+=> {:5x} = ec9be, {:4x} = 340e
+
+Now we need to construct a guessed URL, where {:5x} and {:4x} will be between the range above
+The {:5x} in the guessed URL will be between ec5df, ec9be
+The {:4x} in the guessed URL will be between 3407 and 340e, such as 3408, 3409, 340a, 340b, and so on
+
+Go to online python compiler such as: 
+https://www.programiz.com/python-programming/online-compiler/
+And copy paste into it the code below
+
+import requests
+import time
+for i in range(0xec5df, 0xec9be): // line 3
+    print("{:5x}".format(i))
+    r = requests.get('http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7{:5x}ffff010b00003408.png'.format(i)) // line 5
+    if(r.status_code == 200):
+        print("Success")
+        break
+    if(r.status_code == 439):
+        print("439!")
+        time.sleep(1)
+    time.sleep(0.01)
+
++) where line 3 if the range of {:5x} from those two consecutive links, which is ec5df and ec9be. Keep the literal {:5x} in the link. We need not to replace it.
+Python will replace it with the loop
++) where line 5, last 4 numbers is the part we guess, which runs from 3408 to 340d
+
+Run the code, if "success" is printed, apply the 5 characters right above the Succcess print out
+If not, change the last part 340-, like 3408, if 3408 not successful, 3409, etc until 340d
+
+For example, ec606 is the success {:5x}, and 3408 is the correct guessed ending {:4x}. The constructed URl will be
+http://cdn1.vikaa.fi:51306/photos/ba8f199b/4af879005f7ec606ffff010b00003408.png
+
+Copy this link and search it on browser, if it's indeed exist, then submit
+If not, continue to guess the last four digits until a downloadable link is found out

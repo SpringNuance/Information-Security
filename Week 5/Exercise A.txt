@@ -1,0 +1,4 @@
+Add new plant, then fill this into the name
+<script>if (window.location.pathname == "/plantlist/shared") $.get("http://potplants1.vikaa.fi:51307/plants/shareall");</script>
+
+Share to others, turn yes. Then save the tree.

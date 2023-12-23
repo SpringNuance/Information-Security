@@ -1,0 +1,6 @@
+ssh cloud-user@infosec1.vikaa.fi -p 49548
+VPv46ZKn
+ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "springnuance"
+ssh-copy-id cloud-user@exercise1-135355-ubuntu
+rm ~/.ssh/id_ed25519
+ls -al ~/.ssh

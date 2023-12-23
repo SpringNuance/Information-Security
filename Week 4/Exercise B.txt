@@ -1,0 +1,31 @@
+Since we are again allowed to organize normal examinations, the course examination will be on campus at the scheduled time, 28 October 2021 at 17-20. It will be on pen and paper. The examination covers the lecture content (not only the exercises). I will post more details when they become available.
+The following examinations have been scheduled for 20 December and 11 April. It is possible take the examination at any of these dates, one or more times. The highest points and grade will take effect. I strongly recommend taking the exam in October so that you can focus on other courses after that.
+
+See this post in context 
+
+Invalid message. Should be "user;command;hmac\n".
+
+nc device1.vikaa.fi 50516 < file.txt
+nc device1.vikaa.fi 50516 
+
+echo "abcdefghijklmn" | nc device1.vikaa.fi 50516 
+
+The form ClientCmd|< user_number >|< command> to be converted to hash and decrypted into the buffer has only 48 bytes, 
+17 of which has been occupied by ClientCmd|135355|
+So only 31 bytes left for the command. We also know the keyphrase is 20 bytes long. So to just to overflow the keyphrase without crashing the server
+we should need for the command to be long around 17 + 31 = 51
+
+Let command be 51 letters a: The form will look like:
+
+ClientCmd|135355|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+Now, 20 a at the end overflows the keyphrase, so we have to make 20 a as our key in the generator, 
+Convert ClientCmd|135355|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa to SHA 256, with key as 20a: aaaaaaaaaaaaaaaaaaaa
+
+The HMAC would be: bdda9cde1fdf05c2d5e929a367c805a99407310cfde89c3bf054176d6ae0f506
+Now, put everything together in the format user;command;hmac and sent to the server
+
+Final input
+echo "135355;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;bdda9cde1fdf05c2d5e929a367c805a99407310cfde89c3bf054176d6ae0f506" | nc device1.vikaa.fi 50516
+
+
